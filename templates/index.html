@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ETHBD Hosting · লগইন ও রেজিস্ট্রেশন</title>
+    <!-- আধুনিক বাংলা এবং ইংরেজি ফন্ট -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================================
+           ETHBD HOSTING — MODERN PROFESSIONAL LIGHT THEME
+           Clean White · Royal Blue · Crimson Red Accents
+           ============================================================ */
+
+        :root {
+            --bg-main: #f4f7fb;
+            --bg-card: #ffffff;
+            --primary-blue: #2563eb;
+            --primary-blue-hover: #1d4ed8;
+            --primary-blue-light: #eff6ff;
+            --accent-red: #e11d48;
+            --accent-red-hover: #be123c;
+            --accent-red-light: #fff1f2;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-card: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+            --shadow-input: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+        }
+
+        body {
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--bg-main);
+            /* হালকা প্রফেশনাল ডট প্যাটার্ন এবং গ্র্যাডিয়েন্ট */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(225, 29, 72, 0.07) 0px, transparent 50%),
+                radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 24px 24px;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* ============================================================
+           MAIN CONTAINER & CARD
+           ============================================================ */
+        .container {
+            width: 100%;
+            max-width: 440px;
+            animation: cardSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes cardSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 36px 32px 28px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* কার্ডের উপরে ব্লু এবং রেড ব্র্যান্ড স্ট্রিপ */
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-blue) 65%, var(--accent-red) 65%, var(--accent-red) 100%);
+        }
+
+        /* ============================================================
+           HEADER SECTION
+           ============================================================ */
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .brand-logo {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 14px;
+            background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        .brand-logo svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .header h1 .brand-blue {
+            color: var(--primary-blue);
+        }
+
+        .header h1 .brand-red {
+            color: var(--accent-red);
+        }
+
+        .header .subtitle {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 4px 12px;
+            background: var(--primary-blue-light);
+            color: var(--primary-blue);
+            font-size: 0.78rem;
+            font-weight: 600;
+            border-radius: 999px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* ============================================================
+           TAB SWITCHER (LOGIN / REGISTER)
+           ============================================================ */
+        .tab-switcher {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 12px;
+            margin-bottom: 22px;
+            border: 1px solid var(--border-color);
+        }
+
+        .tab-btn {
+            padding: 9px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.92rem;
+            font-weight: 600;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .tab-btn.active {
+            background: #ffffff;
+            color: var(--primary-blue);
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+        }
+
+        .tab-btn.active.reg-tab {
+            color: var(--accent-red);
+        }
+
+        /* ============================================================
+           FLASH MESSAGES (FLASK INTEGRATION)
+           ============================================================ */
+        .flash-messages {
+            margin-bottom: 18px;
+        }
+
+        .flash-message {
+            padding: 11px 14px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .flash-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .flash-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .flash-success {
+            background: #ecfdf5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+
+        .flash-danger {
+            background: var(--accent-red-light);
+            border-color: var(--accent-red);
+            color: #9f1239;
+        }
+
+        .flash-warning {
+            background: #fffbeb;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .flash-info {
+            background: var(--primary-blue-light);
+            border-color: var(--primary-blue);
+            color: #1e40af;
+        }
+
+        /* ============================================================
+           FORM ELEMENTS
+           ============================================================ */
+        .form-view {
+            display: none;
+        }
+
+        .form-view.active {
+            display: block;
+            animation: formFade 0.3s ease;
+        }
+
+        @keyframes formFade {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            pointer-events: none;
+            transition: color 0.2s;
+        }
+
+        .input-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: 11px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            box-shadow: var(--shadow-input);
+            transition: all 0.2s ease;
+        }
+
+        .form-group input::placeholder {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+
+        .form-group input:focus + .input-icon,
+        .input-wrapper:focus-within .input-icon {
+            color: var(--primary-blue);
+        }
+
+        /* রেজিস্ট্রেশন ফর্মের ইনপুট ফোকাস রেড অ্যাকসেন্ট */
+        #registerView .form-group input:focus {
+            border-color: var(--accent-red);
+            box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.12);
+        }
+
+        #registerView .input-wrapper:focus-within .input-icon {
+            color: var(--accent-red);
+        }
+
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn-submit {
+            width: 100%;
+            padding: 13px 20px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 11px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        /* লগইন বাটন (Royal Blue) */
+        .btn-blue {
+            background: linear-gradient(135deg, var(--primary-blue), #1d4ed8);
+            box-shadow: 0 8px 16px -4px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn-blue:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+            box-shadow: 0 12px 20px -4px rgba(37, 99, 235, 0.45);
+        }
+
+        .btn-blue:active {
+            transform: translateY(1px);
+        }
+
+        /* রেজিস্টার বাটন (Crimson Red) */
+        .btn-red {
+            background: linear-gradient(135deg, var(--accent-red), #be123c);
+            box-shadow: 0 8px 16px -4px rgba(225, 29, 72, 0.35);
+        }
+
+        .btn-red:hover {
+            background: linear-gradient(135deg, #be123c, #9f1239);
+            transform: translateY(-1px);
+            box-shadow: 0 12px 20px -4px rgba(225, 29, 72, 0.45);
+        }
+
+        .btn-red:active {
+            transform: translateY(1px);
+        }
+
+        .helper-text {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .helper-text button {
+            background: none;
+            border: none;
+            color: var(--primary-blue);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .helper-text button.red-link {
+            color: var(--accent-red);
+            text-decoration: none;
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-note {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .footer-note svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================
+           RESPONSIVE ADJUSTMENTS
+           ============================================================ */
+        @media (max-width: 480px) {
+            body {
+                padding: 14px;
+            }
+            .auth-card {
+                padding: 28px 20px 22px;
+                border-radius: 16px;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="auth-card">
+            
+            <!-- Header Section -->
+            <div class="header">
+                <div class="brand-logo">
+                    <!-- Server / Cloud Hosting Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                    </svg>
+                </div>
+                <h1>
+                    <span class="brand-blue">ETH</span><span class="brand-red">BD</span> HOSTING
+                </h1>
+                <span class="subtitle">Python Script Hosting Platform</span>
+            </div>
+
+            <!-- Flash Messages (Flask Jinja2) -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}">
+                    <span class="flash-icon">
+                        {% if category == 'success' %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {% elif category == 'danger' %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {% elif category == 'warning' %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {% endif %}
+                    </span>
+                    <span>{{ message }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <!-- Top Tab Switcher -->
+            <div class="tab-switcher">
+                <button type="button" class="tab-btn active" id="tabLogin" onclick="showView('loginView')">
+                    লগইন
+                </button>
+                <button type="button" class="tab-btn reg-tab" id="tabRegister" onclick="showView('registerView')">
+                    রেজিস্টার
+                </button>
+            </div>
+
+            <!-- ===== LOGIN VIEW ===== -->
+            <div class="form-view active" id="loginView">
+                <form method="POST" action="{{ url_for('login_user') }}">
+                    <div class="form-group">
+                        <label for="loginUsername">ইউজারনেম</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </span>
+                            <input type="text" id="loginUsername" name="username" placeholder="আপনার ইউজারনেম লিখুন" required autofocus />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">পাসওয়ার্ড</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                            </span>
+                            <input type="password" id="loginPassword" name="password" placeholder="আপনার পাসওয়ার্ড লিখুন" required />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit btn-blue">
+                        <span>লগইন করুন</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </form>
+
+                <div class="helper-text">
+                    অ্যাকাউন্ট নেই? <button type="button" class="red-link" onclick="showView('registerView')">নতুন অ্যাকাউন্ট তৈরি করুন</button>
+                </div>
+            </div>
+
+            <!-- ===== REGISTER VIEW ===== -->
+            <div class="form-view" id="registerView">
+                <form method="POST" action="{{ url_for('register_user') }}">
+                    <div class="form-group">
+                        <label for="regUsername">নতুন ইউজারনেম</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                                </svg>
+                            </span>
+                            <input type="text" id="regUsername" name="username" placeholder="কমপক্ষে ৩ অক্ষর (a-z, 0-9, _)" required minlength="3" pattern="[a-zA-Z0-9_]+" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regPassword">নতুন পাসওয়ার্ড</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                            </span>
+                            <input type="password" id="regPassword" name="password" placeholder="কমপক্ষে ৪ অক্ষর দিন" required minlength="4" />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit btn-red">
+                        <span>রেজিস্টার করুন</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </button>
+                </form>
+
+                <div class="helper-text">
+                    ইতিমধ্যে অ্যাকাউন্ট আছে? <button type="button" onclick="showView('loginView')">লগইন করুন</button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <span class="footer-note">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>রেজিস্ট্রেশনের পর লগইন করে ড্যাশবোর্ডে প্রবেশ করুন</span>
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // লগইন এবং রেজিস্টার ট্যাব পরিবর্তন করার ফাংশন
+        function showView(viewId) {
+            document.querySelectorAll('.form-view').forEach(view => view.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            const targetView = document.getElementById(viewId);
+            if (targetView) {
+                targetView.classList.add('active');
+                const firstInput = targetView.querySelector('input');
+                if (firstInput) firstInput.focus();
+            }
+
+            if (viewId === 'loginView') {
+                document.getElementById('tabLogin').classList.add('active');
+            } else if (viewId === 'registerView') {
+                document.getElementById('tabRegister').classList.add('active');
+            }
+        }
+
+        // ৫ সেকেন্ড পর ফ্ল্যাশ মেসেজ অটো হাইড করা
+        setTimeout(() => {
+            document.querySelectorAll('.flash-message').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(-8px)';
+                el.style.transition = 'all 0.4s ease';
+                setTimeout(() => el.remove(), 400);
+            });
+        }, 5000);
+    </script>
+
+</body>
+</html>

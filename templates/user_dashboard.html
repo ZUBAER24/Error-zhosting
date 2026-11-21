@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ETHBD Hosting — {{ username }} | ড্যাশবোর্ড</title>
+    <!-- আধুনিক বাংলা ও ইংরেজি ফন্ট -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           ETHBD HOSTING — MODERN PROFESSIONAL DASHBOARD
+           Clean White · Royal Blue · Crimson Red Accents
+           ============================================================ */
+
+        :root {
+            --bg-main: #f4f7fb;
+            --bg-card: #ffffff;
+            --primary-blue: #2563eb;
+            --primary-blue-hover: #1d4ed8;
+            --primary-blue-light: #eff6ff;
+            --accent-red: #e11d48;
+            --accent-red-hover: #be123c;
+            --accent-red-light: #fff1f2;
+            --success-green: #10b981;
+            --success-green-light: #ecfdf5;
+            --warning-amber: #f59e0b;
+            --warning-amber-light: #fffbeb;
+            --text-dark: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            min-height: 100vh;
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.06) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(225, 29, 72, 0.05) 0px, transparent 50%);
+            color: var(--text-dark);
+            padding-bottom: 50px;
+        }
+
+        /* ============================================================
+           TOP NAVBAR
+           ============================================================ */
+        .navbar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .navbar::before {
+            content: '';
+            display: block;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-blue) 65%, var(--accent-red) 65%, var(--accent-red) 100%);
+        }
+
+        .navbar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+            flex-shrink: 0;
+        }
+
+        .brand-title h1 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-title h1 .blue { color: var(--primary-blue); }
+        .brand-title h1 .red { color: var(--accent-red); }
+
+        .version-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: var(--primary-blue-light);
+            color: var(--primary-blue);
+            border: 1px solid #bfdbfe;
+        }
+
+        .user-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .user-meta strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .online-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--success-green-light);
+            color: #065f46;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .online-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--success-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ============================================================
+           MAIN CONTAINER & CARDS
+           ============================================================ */
+        .container {
+            max-width: 1200px;
+            margin: 28px auto 0;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            padding: 26px;
+            margin-bottom: 24px;
+            animation: fadeUp 0.4s ease;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #f1f5f9;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card-title-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-blue {
+            background: var(--primary-blue-light);
+            color: var(--primary-blue);
+        }
+
+        .icon-red {
+            background: var(--accent-red-light);
+            color: var(--accent-red);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .badge-pill {
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            background: #f1f5f9;
+            color: var(--text-secondary);
+        }
+
+        .badge-blue {
+            background: var(--primary-blue-light);
+            color: var(--primary-blue);
+        }
+
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .btn-blue {
+            background: linear-gradient(135deg, var(--primary-blue), #1d4ed8);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+        .btn-blue:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn-red {
+            background: var(--accent-red);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.2);
+        }
+        .btn-red:hover {
+            background: var(--accent-red-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-red-soft {
+            background: var(--accent-red-light);
+            color: var(--accent-red);
+            border-color: #fecdd3;
+        }
+        .btn-red-soft:hover {
+            background: var(--accent-red);
+            color: #ffffff;
+        }
+
+        .btn-blue-soft {
+            background: var(--primary-blue-light);
+            color: var(--primary-blue);
+            border-color: #bfdbfe;
+        }
+        .btn-blue-soft:hover {
+            background: var(--primary-blue);
+            color: #ffffff;
+        }
+
+        .btn-green {
+            background: var(--success-green);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+        }
+        .btn-green:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .btn-amber {
+            background: var(--warning-amber-light);
+            color: #b45309;
+            border-color: #fde68a;
+        }
+        .btn-amber:hover {
+            background: var(--warning-amber);
+            color: #ffffff;
+        }
+
+        .btn-outline {
+            background: #ffffff;
+            color: var(--text-secondary);
+            border-color: var(--border-color);
+        }
+        .btn-outline:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: var(--text-dark);
+        }
+
+        /* ============================================================
+           FLASH MESSAGES
+           ============================================================ */
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+
+        .flash-message {
+            padding: 13px 18px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            font-size: 0.92rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid;
+            box-shadow: var(--shadow-sm);
+            background: #ffffff;
+            animation: slideIn 0.3s ease;
+        }
+
+        .flash-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .flash-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-12px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .flash-success {
+            background: var(--success-green-light);
+            border-color: var(--success-green);
+            color: #065f46;
+        }
+        .flash-danger {
+            background: var(--accent-red-light);
+            border-color: var(--accent-red);
+            color: #9f1239;
+        }
+        .flash-warning {
+            background: var(--warning-amber-light);
+            border-color: var(--warning-amber);
+            color: #92400e;
+        }
+        .flash-info {
+            background: var(--primary-blue-light);
+            border-color: var(--primary-blue);
+            color: #1e40af;
+        }
+
+        /* ============================================================
+           UPLOAD SECTION
+           ============================================================ */
+        .upload-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .upload-slot {
+            border: 2px dashed #cbd5e1;
+            border-radius: 14px;
+            padding: 24px 18px;
+            text-align: center;
+            cursor: pointer;
+            background: #f8fafc;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .upload-slot:hover {
+            border-color: var(--primary-blue);
+            background: var(--primary-blue-light);
+        }
+
+        .upload-slot.req-slot:hover {
+            border-color: var(--accent-red);
+            background: var(--accent-red-light);
+        }
+
+        .upload-slot.has-file {
+            border-style: solid;
+            border-color: var(--primary-blue);
+            background: var(--primary-blue-light);
+        }
+
+        .upload-slot.req-slot.has-file {
+            border-style: solid;
+            border-color: var(--accent-red);
+            background: var(--accent-red-light);
+        }
+
+        .upload-slot input[type="file"] {
+            display: none;
+        }
+
+        .slot-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #ffffff;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .req-slot .slot-icon-box {
+            color: var(--accent-red);
+        }
+
+        .upload-slot-label {
+            font-weight: 700;
+            font-size: 0.98rem;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .upload-slot-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .upload-slot-filename {
+            margin-top: 10px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            word-break: break-all;
+            min-height: 1.2em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .upload-slot-filename svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+        }
+
+        .req-slot .upload-slot-filename {
+            color: var(--accent-red);
+        }
+
+        .upload-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-top: 6px;
+        }
+
+        .upload-note {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .upload-note svg {
+            width: 15px;
+            height: 15px;
+            color: var(--primary-blue);
+            flex-shrink: 0;
+        }
+
+        /* ============================================================
+           SCRIPTS GRID & CARDS
+           ============================================================ */
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 18px;
+        }
+
+        .script-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .script-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-blue);
+        }
+
+        .script-card.accent-red::before {
+            background: var(--accent-red);
+        }
+
+        .script-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -8px rgba(15, 23, 42, 0.12);
+            border-color: #cbd5e1;
+        }
+
+        .script-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .script-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            word-break: break-all;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .script-name svg {
+            color: var(--primary-blue);
+            flex-shrink: 0;
+        }
+
+        .script-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: #f8fafc;
+            padding: 10px 12px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .meta-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Status Badges */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 11px;
+            border-radius: 999px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+
+        .status-running {
+            background: var(--success-green-light);
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .status-running .status-dot {
+            background: var(--success-green);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+
+        .status-stopped {
+            background: var(--accent-red-light);
+            color: #9f1239;
+            border: 1px solid #fecdd3;
+        }
+
+        .status-stopped .status-dot {
+            background: var(--accent-red);
+        }
+
+        .script-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-top: 12px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .script-actions .btn {
+            padding: 7px 12px;
+            font-size: 0.8rem;
+            flex: 1;
+            min-width: fit-content;
+        }
+
+        /* Empty State */
+        .no-scripts {
+            text-align: center;
+            padding: 50px 20px;
+            background: #f8fafc;
+            border-radius: 14px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .no-scripts-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 14px;
+            background: var(--primary-blue-light);
+            color: var(--primary-blue);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .no-scripts h3 {
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .no-scripts p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================================
+           BOTTOM UTILITY BAR & MODAL
+           ============================================================ */
+        .bottom-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .server-tick {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Custom Confirmation Modal (Replaces alert/confirm) */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 16px;
+        }
+
+        .modal-backdrop.active {
+            display: flex;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-box {
+            background: #ffffff;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 100%;
+            padding: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .modal-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--accent-red-light);
+            color: var(--accent-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+        }
+
+        .modal-box h3 {
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .modal-box p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+            padding: 10px;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 640px) {
+            .navbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-actions {
+                width: 100%;
+            }
+            .nav-actions .btn {
+                flex: 1;
+            }
+            .script-grid {
+                grid-template-columns: 1fr;
+            }
+            .upload-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .upload-footer .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <div class="brand-section">
+                <div class="brand-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                    </svg>
+                </div>
+                <div class="brand-title">
+                    <h1>
+                        <span><span class="blue">ETH</span><span class="red">BD</span> HOSTING</span>
+                        <span class="version-badge">v2.0 Pro</span>
+                    </h1>
+                    <div class="user-meta">
+                        <span>স্বাগতম, <strong>{{ username }}</strong></span>
+                        <span>•</span>
+                        <span class="online-pill">
+                            <span class="online-dot"></span> অনলাইন
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-actions">
+                <a href="{{ url_for('index') }}" class="btn btn-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    হোম
+                </a>
+                <a href="{{ url_for('logout') }}" class="btn btn-red-soft">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    লগআউট
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div class="flash-message flash-{{ category }}">
+                <span class="flash-icon">
+                    {% if category == 'success' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {% elif category == 'danger' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {% elif category == 'warning' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {% endif %}
+                </span>
+                <span>{{ message }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <!-- ===== UPLOAD CARD ===== -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <div class="card-icon icon-blue">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+                    </div>
+                    <h2 class="card-title">নতুন স্ক্রিপ্ট আপলোড করুন</h2>
+                </div>
+                <span class="badge-pill badge-blue">Python Deploy</span>
+            </div>
+
+            <form method="POST" action="{{ url_for('upload_script') }}" enctype="multipart/form-data" id="uploadForm">
+                <div class="upload-grid">
+                    <!-- Script (.py) — required -->
+                    <label class="upload-slot" id="slotScript">
+                        <div class="slot-icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </div>
+                        <span class="upload-slot-label">Python Script (.py)</span>
+                        <span class="upload-slot-hint">বাধ্যতামূলক • সর্বোচ্চ 10MB</span>
+                        <span class="upload-slot-filename" id="fileNameScript"></span>
+                        <input type="file" name="script" accept=".py" required
+                               onchange="onFilePicked(this, 'slotScript', 'fileNameScript')" />
+                    </label>
+
+                    <!-- requirements.txt — optional -->
+                    <label class="upload-slot req-slot" id="slotReq">
+                        <div class="slot-icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <span class="upload-slot-label">requirements.txt</span>
+                        <span class="upload-slot-hint">ঐচ্ছিক • অটো pip install হবে</span>
+                        <span class="upload-slot-filename" id="fileNameReq"></span>
+                        <input type="file" name="requirements" accept=".txt"
+                               onchange="onFilePicked(this, 'slotReq', 'fileNameReq')" />
+                    </label>
+                </div>
+
+                <div class="upload-footer">
+                    <span class="upload-note">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>.py ফাইল নির্বাচন করা বাধ্যতামূলক, প্রতিটি ফাইল সর্বোচ্চ 10MB হতে পারবে।</span>
+                    </span>
+                    <button type="submit" class="btn btn-blue" style="padding: 11px 26px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        আপলোড ও ডিপ্লয় করুন
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- ===== SCRIPTS LIST CARD ===== -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <div class="card-icon icon-red">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        </svg>
+                    </div>
+                    <h2 class="card-title">আমার স্ক্রিপ্টসমূহ</h2>
+                </div>
+                <span class="badge-pill">মোট {{ scripts|length }} টি স্ক্রিপ্ট</span>
+            </div>
+
+            {% if scripts %}
+            <div class="script-grid">
+                {% for script in scripts %}
+                <div class="script-card {% if loop.index0 % 2 == 1 %}accent-red{% endif %}" id="script-{{ loop.index }}">
+                    <div>
+                        <div class="script-top">
+                            <div class="script-name">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>{{ script.name }}</span>
+                            </div>
+
+                            {% if script.status == 'running' %}
+                            <span class="status status-running">
+                                <span class="status-dot"></span> চলছে
+                            </span>
+                            {% else %}
+                            <span class="status status-stopped">
+                                <span class="status-dot"></span> বন্ধ
+                            </span>
+                            {% endif %}
+                        </div>
+
+                        <div class="script-meta">
+                            <div class="meta-row">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                                </svg>
+                                <span>ফাইল সাইজ: <strong>{{ (script.size / 1024)|round(1) }} KB</strong></span>
+                            </div>
+                            <div class="meta-row">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>সর্বশেষ পরিবর্তন: {{ script.modified }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="script-actions">
+                        {% if script.status == 'running' %}
+                        <a href="{{ url_for('stop_script_route', username=username, script_name=script.name) }}" class="btn btn-red">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
+                            </svg>
+                            স্টপ
+                        </a>
+                        <a href="{{ url_for('restart_script_route', username=username, script_name=script.name) }}" class="btn btn-amber">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            রিস্টার্ট
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('run_script_route', username=username, script_name=script.name) }}" class="btn btn-green">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            রান
+                        </a>
+                        {% endif %}
+
+                        <a href="{{ url_for('view_logs', username=username, script_name=script.name) }}" class="btn btn-blue-soft">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            লগ
+                        </a>
+
+                        <button type="button" class="btn btn-red-soft" onclick="openDeleteModal('{{ url_for('delete_script_route', username=username, script_name=script.name) }}', '{{ script.name }}')">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            ডিলিট
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-scripts">
+                <div class="no-scripts-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                    </svg>
+                </div>
+                <h3>কোনো স্ক্রিপ্ট আপলোড করা হয়নি</h3>
+                <p>উপরের আপলোড বক্স থেকে আপনার Python (.py) ফাইল আপলোড করে শুরু করুন।</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <div class="bottom-bar">
+            <a href="{{ url_for('clear_logs', username=username) }}" class="btn btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                সকল লগ ক্লিয়ার করুন
+            </a>
+            <span class="server-tick">
+                <span class="online-dot"></span> সার্ভার স্ট্যাটাস: সক্রিয় (Auto-sync 30s)
+            </span>
+        </div>
+
+    </div>
+
+    <!-- Custom Delete Confirmation Modal -->
+    <div class="modal-backdrop" id="deleteModal">
+        <div class="modal-box">
+            <div class="modal-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+            </div>
+            <h3>স্ক্রিপ্ট মুছে ফেলবেন?</h3>
+            <p>আপনি কি নিশ্চিত যে <strong id="modalScriptName" style="color:#0f172a;"></strong> স্ক্রিপ্টটি স্থায়ীভাবে ডিলিট করতে চান?</p>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-outline" onclick="closeDeleteModal()">বাতিল করুন</button>
+                <a href="#" id="confirmDeleteBtn" class="btn btn-red">হ্যাঁ, ডিলিট করুন</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== FILE PICK HANDLER =====
+        function onFilePicked(input, slotId, fileNameId) {
+            const slot = document.getElementById(slotId);
+            const nameEl = document.getElementById(fileNameId);
+            if (input.files && input.files.length > 0) {
+                slot.classList.add('has-file');
+                nameEl.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg><span>নির্বাচিত: ' + input.files[0].name + '</span>';
+            } else {
+                slot.classList.remove('has-file');
+                nameEl.innerHTML = '';
+            }
+        }
+
+        // ===== CUSTOM DELETE MODAL =====
+        function openDeleteModal(deleteUrl, scriptName) {
+            document.getElementById('modalScriptName').textContent = scriptName;
+            document.getElementById('confirmDeleteBtn').href = deleteUrl;
+            document.getElementById('deleteModal').classList.add('active');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('active');
+        }
+
+        document.getElementById('deleteModal').addEventListener('click', function(e) {
+            if (e.target === this) closeDeleteModal();
+        });
+
+        // ===== AUTO-DISMISS FLASH =====
+        setTimeout(() => {
+            document.querySelectorAll('.flash-message').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(-10px)';
+                el.style.transition = 'all 0.4s ease';
+                setTimeout(() => el.remove(), 400);
+            });
+        }, 5000);
+
+        // ===== AUTO-REFRESH STATUS (every 30s) =====
+        setInterval(() => {
+            {% for script in scripts %}
+            fetch("{{ url_for('get_script_status_route', username=username, script_name=script.name) }}")
+                .then(response => response.json())
+                .then(data => {
+                    const card = document.querySelector('#script-{{ loop.index }}');
+                    if (!card) return;
+                    const statusEl = card.querySelector('.status');
+                    if (!statusEl) return;
+                    if (data.running) {
+                        statusEl.className = 'status status-running';
+                        statusEl.innerHTML = '<span class="status-dot"></span> চলছে';
+                    } else {
+                        statusEl.className = 'status status-stopped';
+                        statusEl.innerHTML = '<span class="status-dot"></span> বন্ধ';
+                    }
+                })
+                .catch(() => {});
+            {% endfor %}
+        }, 30000);
+    </script>
+
+</body>
+</html>

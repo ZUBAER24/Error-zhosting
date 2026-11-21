@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logs — {{ script_name }} | ETHBD Hosting</title>
+    <!-- আধুনিক বাংলা এবং ইংরেজি ফন্ট -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           ETHBD HOSTING — MODERN SCRIPT LOGS VIEWER
+           Clean White Card · Royal Blue & Crimson Red Accents · Dark Terminal
+           ============================================================ */
+
+        :root {
+            --bg-main: #f4f7fb;
+            --bg-card: #ffffff;
+            --primary-blue: #2563eb;
+            --primary-blue-hover: #1d4ed8;
+            --primary-blue-light: #eff6ff;
+            --accent-red: #e11d48;
+            --accent-red-hover: #be123c;
+            --accent-red-light: #fff1f2;
+            --success-green: #10b981;
+            --success-green-light: #ecfdf5;
+            --warning-amber: #f59e0b;
+            --warning-amber-light: #fffbeb;
+            --text-dark: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --terminal-bg: #0f172a;
+            --terminal-header: #1e293b;
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            min-height: 100vh;
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.06) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(225, 29, 72, 0.05) 0px, transparent 50%);
+            color: var(--text-dark);
+            padding-bottom: 45px;
+        }
+
+        /* ============================================================
+           TOP NAVBAR
+           ============================================================ */
+        .navbar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .navbar::before {
+            content: '';
+            display: block;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-blue) 65%, var(--accent-red) 65%, var(--accent-red) 100%);
+        }
+
+        .navbar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+            flex-shrink: 0;
+        }
+
+        .brand-title h1 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .script-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: var(--primary-blue-light);
+            color: var(--primary-blue);
+            border: 1px solid #bfdbfe;
+        }
+
+        .meta-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+            flex-wrap: wrap;
+        }
+
+        .meta-info strong {
+            color: var(--text-dark);
+        }
+
+        .live-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--success-green-light);
+            color: #065f46;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.74rem;
+            font-weight: 600;
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--success-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.86rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .btn-blue {
+            background: linear-gradient(135deg, var(--primary-blue), #1d4ed8);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+        .btn-blue:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+        }
+
+        .btn-red-soft {
+            background: var(--accent-red-light);
+            color: var(--accent-red);
+            border-color: #fecdd3;
+        }
+        .btn-red-soft:hover {
+            background: var(--accent-red);
+            color: #ffffff;
+        }
+
+        .btn-blue-soft {
+            background: var(--primary-blue-light);
+            color: var(--primary-blue);
+            border-color: #bfdbfe;
+        }
+        .btn-blue-soft:hover {
+            background: var(--primary-blue);
+            color: #ffffff;
+        }
+
+        .btn-outline {
+            background: #ffffff;
+            color: var(--text-secondary);
+            border-color: var(--border-color);
+        }
+        .btn-outline:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: var(--text-dark);
+        }
+
+        /* ============================================================
+           MAIN CONTAINER & LOG TERMINAL CARD
+           ============================================================ */
+        .container {
+            max-width: 1200px;
+            margin: 28px auto 0;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            padding: 22px;
+            animation: fadeUp 0.4s ease;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .terminal-wrapper {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #1e293b;
+            box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.2);
+        }
+
+        .terminal-topbar {
+            background: var(--terminal-header);
+            padding: 11px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 1px solid #334155;
+        }
+
+        .terminal-dots {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #f43f5e; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .terminal-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-left: 6px;
+        }
+
+        .terminal-tools {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tool-btn {
+            background: rgba(255, 255, 255, 0.06);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 5px 11px;
+            border-radius: 7px;
+            font-family: inherit;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.15s ease;
+        }
+
+        .tool-btn:hover {
+            background: rgba(255, 255, 255, 0.14);
+            color: #ffffff;
+        }
+
+        .log-container {
+            background: var(--terminal-bg);
+            padding: 20px;
+            min-height: 420px;
+            max-height: 620px;
+            overflow-y: auto;
+        }
+
+        .log-container::-webkit-scrollbar {
+            width: 10px;
+            background: #0f172a;
+        }
+        .log-container::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 999px;
+        }
+        .log-container::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .log-content {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.86rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.68;
+            color: #cbd5e1;
+        }
+
+        .line {
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1px;
+        }
+
+        .line-error {
+            color: #fda4af;
+            background: rgba(225, 29, 72, 0.15);
+            border-left: 3px solid var(--accent-red);
+        }
+
+        .line-success {
+            color: #6ee7b7;
+            background: rgba(16, 185, 129, 0.12);
+            border-left: 3px solid var(--success-green);
+        }
+
+        .line-warning {
+            color: #fcd34d;
+            background: rgba(245, 158, 11, 0.12);
+            border-left: 3px solid var(--warning-amber);
+        }
+
+        .line-info {
+            color: #93c5fd;
+            background: rgba(37, 99, 235, 0.15);
+            border-left: 3px solid var(--primary-blue);
+        }
+
+        /* ============================================================
+           EMPTY LOGS STATE
+           ============================================================ */
+        .no-logs {
+            text-align: center;
+            padding: 64px 20px;
+            color: #94a3b8;
+        }
+
+        .no-logs-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: rgba(37, 99, 235, 0.15);
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+        }
+
+        .no-logs h3 {
+            font-size: 1.05rem;
+            color: #f1f5f9;
+            margin-bottom: 5px;
+        }
+
+        .no-logs p {
+            font-size: 0.88rem;
+            color: #94a3b8;
+        }
+
+        .no-logs-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================================
+           FOOTER HINT & COPY TOAST
+           ============================================================ */
+        .footer-bar {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .footer-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .footer-hint svg {
+            width: 16px;
+            height: 16px;
+            color: var(--primary-blue);
+            flex-shrink: 0;
+        }
+
+        .kbd {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.76rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .copy-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--primary-blue);
+            color: #ffffff;
+            padding: 11px 18px;
+            border-radius: 10px;
+            font-size: 0.86rem;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.25s ease;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .copy-toast svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .copy-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 640px) {
+            .navbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .actions {
+                width: 100%;
+            }
+            .actions .btn {
+                flex: 1;
+            }
+            .log-container {
+                padding: 14px;
+                min-height: 320px;
+                max-height: 460px;
+            }
+            .log-content {
+                font-size: 0.78rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <div class="brand-section">
+                <div class="brand-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <div class="brand-title">
+                    <h1>
+                        <span>Script Logs</span>
+                        <span class="script-pill">{{ script_name }}</span>
+                    </h1>
+                    <div class="meta-info">
+                        <span>ইউজার: <strong>{{ username }}</strong></span>
+                        <span>•</span>
+                        <span>ফাইল: <strong>{{ script_name }}</strong></span>
+                        <span>•</span>
+                        <span class="live-pill">
+                            <span class="live-dot"></span> কনসোল সক্রিয়
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <a href="{{ url_for('user_dashboard', username=username) }}" class="btn btn-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    ড্যাশবোর্ড
+                </a>
+                <a href="{{ url_for('clear_logs', username=username) }}" class="btn btn-red-soft">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    লগ ক্লিয়ার
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <div class="terminal-wrapper">
+                <!-- Terminal Header -->
+                <div class="terminal-topbar">
+                    <div class="terminal-dots">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                        <span class="terminal-label">output — {{ script_name }}</span>
+                    </div>
+
+                    <div class="terminal-tools">
+                        <button type="button" class="tool-btn" onclick="window.location.reload()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            রিলোড
+                        </button>
+                        <button type="button" class="tool-btn" onclick="copyLogs()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            কপি লগ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Log Output Body -->
+                <div class="log-container" id="logContainer">
+                    {% if logs and logs != "No logs available" %}
+                    <div class="log-content" id="logContent">
+                        {% for line in logs.split('\n') %}
+                            {% if line.strip() %}
+                                {% if 'ERROR' in line or 'error' in line or 'Failed' in line or 'failed' in line or 'Exception' in line %}
+                                    <div class="line line-error">{{ line }}</div>
+                                {% elif 'Success' in line or 'success' in line or 'started' in line.lower() or 'running' in line.lower() %}
+                                    <div class="line line-success">{{ line }}</div>
+                                {% elif 'Warning' in line or 'warning' in line or 'WARN' in line %}
+                                    <div class="line line-warning">{{ line }}</div>
+                                {% elif 'INFO' in line or 'info' in line or 'Running' in line or 'Listening' in line or 'Start' in line %}
+                                    <div class="line line-info">{{ line }}</div>
+                                {% else %}
+                                    <div class="line">{{ line }}</div>
+                                {% endif %}
+                            {% else %}
+                                <div style="height: 6px;"></div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="no-logs">
+                        <div class="no-logs-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                            </svg>
+                        </div>
+                        <h3>কোনো লগ পাওয়া যায়নি</h3>
+                        <p>স্ক্রিপ্ট রান করলে কনসোল আউটপুট এবং লগ এখানে দেখা যাবে।</p>
+                        <div class="no-logs-actions">
+                            <a href="{{ url_for('run_script_route', username=username, script_name=script_name) }}" class="btn btn-blue">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                স্ক্রিপ্ট রান করুন
+                            </a>
+                            <a href="{{ url_for('user_dashboard', username=username) }}" class="btn btn-outline">
+                                ড্যাশবোর্ডে ফিরুন
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Footer Hint -->
+            <div class="footer-bar">
+                <span class="footer-hint">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>স্ক্রল পজিশন ঠিক রাখতে লগ অটো-রিফ্রেশ হয় না। নতুন লগ দেখতে পেজ রিফ্রেশ করুন।</span>
+                </span>
+                <span>শর্টকাট: চাপুন <span class="kbd">R</span> রিলোড করতে</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copy Notification Toast -->
+    <div class="copy-toast" id="copyToast">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+        <span>লগ ক্লিপবোর্ডে কপি করা হয়েছে!</span>
+    </div>
+
+    <script>
+        // লগ কন্টেইনারের একদম নিচে অটো-স্ক্রল করা
+        const logContainer = document.getElementById('logContainer');
+        if (logContainer) {
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        // 'R' কি চাপলে লগ রিলোড করা
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'r') return;
+            if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const tag = document.activeElement?.tagName || '';
+                if (tag !== 'INPUT' && tag !== 'TEXTAREA' && tag !== 'SELECT') {
+                    e.preventDefault();
+                    window.location.reload();
+                }
+            }
+        });
+
+        // লগ কপি করার ফাংশন
+        function copyLogs() {
+            const logEl = document.getElementById('logContent');
+            if (!logEl) return;
+            const text = logEl.innerText;
+
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                const toast = document.getElementById('copyToast');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2500);
+            } catch (err) {
+                console.error('Copy failed:', err);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // সেশন অ্যাক্টিভ রাখার জন্য হালকা ping
+        setInterval(() => {
+            fetch(window.location.href, { method: 'HEAD', cache: 'no-store' }).catch(() => {});
+        }, 30000);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 Not Found — ETHBD Hosting</title>
+    <!-- আধুনিক বাংলা এবং ইংরেজি ফন্ট -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           ETHBD HOSTING — MODERN 404 ERROR PAGE
+           Clean White · Royal Blue · Crimson Red Accents
+           ============================================================ */
+
+        :root {
+            --bg-main: #f4f7fb;
+            --bg-card: #ffffff;
+            --primary-blue: #2563eb;
+            --primary-blue-hover: #1d4ed8;
+            --primary-blue-light: #eff6ff;
+            --accent-red: #e11d48;
+            --accent-red-hover: #be123c;
+            --accent-red-light: #fff1f2;
+            --text-dark: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-card: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(225, 29, 72, 0.08) 0px, transparent 50%),
+                radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 24px 24px;
+            color: var(--text-dark);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            animation: cardSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes cardSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px 32px 32px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* কার্ডের উপরে ব্লু ও রেড ব্র্যান্ড স্ট্রিপ */
+        .error-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-blue) 60%, var(--accent-red) 60%, var(--accent-red) 100%);
+        }
+
+        .error-icon-box {
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 18px;
+            background: var(--accent-red-light);
+            border: 1px solid #fecdd3;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-red);
+        }
+
+        .error-icon-box svg {
+            width: 34px;
+            height: 34px;
+        }
+
+        .error-code {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 10px;
+        }
+
+        .error-code .blue {
+            color: var(--primary-blue);
+        }
+
+        .error-code .red {
+            color: var(--accent-red);
+        }
+
+        .error-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--primary-blue-light);
+            color: var(--primary-blue);
+            font-size: 0.78rem;
+            font-weight: 700;
+            border-radius: 999px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 26px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 22px;
+            border-radius: 11px;
+            font-family: inherit;
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn svg {
+            width: 17px;
+            height: 17px;
+            flex-shrink: 0;
+        }
+
+        .btn-blue {
+            background: linear-gradient(135deg, var(--primary-blue), #1d4ed8);
+            color: #ffffff;
+            box-shadow: 0 8px 16px -4px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn-blue:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+            box-shadow: 0 12px 20px -4px rgba(37, 99, 235, 0.45);
+        }
+
+        .btn-outline {
+            background: #f8fafc;
+            color: var(--text-secondary);
+            border-color: var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            color: var(--text-dark);
+        }
+
+        .footer {
+            margin-top: 26px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        .footer .blue { color: var(--primary-blue); }
+        .footer .red { color: var(--accent-red); }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 14px;
+            }
+            .error-card {
+                padding: 32px 20px 24px;
+                border-radius: 16px;
+            }
+            .error-code {
+                font-size: 3.75rem;
+            }
+            .btn-group {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="error-card">
+            <div class="error-icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+            </div>
+
+            <div class="error-code">
+                <span class="blue">4</span><span class="red">0</span><span class="blue">4</span>
+            </div>
+
+            <span class="error-badge">Page Not Found</span>
+
+            <h1>দুঃখিত, পেজটি খুঁজে পাওয়া যায়নি!</h1>
+            <p>আপনি যে লিংক বা পেজটি খুঁজছেন সেটি সরিয়ে ফেলা হয়েছে, নাম পরিবর্তন করা হয়েছে অথবা সাময়িকভাবে অনুপলব্ধ।</p>
+
+            <div class="btn-group">
+                <a href="{{ url_for('index') }}" class="btn btn-blue">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <span>হোম পেজে যান</span>
+                </a>
+                <button type="button" onclick="history.back()" class="btn btn-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span>পিছনে ফিরুন</span>
+                </button>
+            </div>
+
+            <div class="footer">
+                <span class="blue">ETH</span><span class="red">BD</span> HOSTING
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
